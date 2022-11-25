@@ -6,43 +6,51 @@
 /*   By: apereira <apereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:03:31 by apereira          #+#    #+#             */
-/*   Updated: 2022/11/23 17:55:10 by apereira         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:11:24 by apereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_check(char *string)
+int	ft_check(va_list arg, char type)
 {
-	if (string[1] == 'c')
-		ft_putchar();
-	else if (string[1] == 's')
-		ft_putstr();
-	else if (string[1] == 'p')
-		ft_to_hex(, string[1]);
-	else if (string[1] == 'd')
-		;
-	else if (string[1] == 'i')
-		;
-	else if (string[1] == 'u')
-		;
-	else if (string[1] == 'x')
-		ft_to_hex(, string[1]);
-	else if (string[1] == 'X')
-		ft_to_hex(, string[1]);
-	else if (string[1] == '%')
+	int	count;
+
+	count = 0;
+	if (type == 'c')
+		return (ft_putchar(va_arg(arg, char)));
+	else if (type == 's')
+		return (ft_putstr(va_arg(arg, char *)));
+	else if (type == 'p')
+		return (ft_to_hex(va_arg(arg, int), type));
+	else if (type == 'd' || type == 'i')
+		ft_putnbr(va_arg(arg, int), count);
+	else if (type == 'u')
+		ft_putunbr(va_arg(arg, unsigned int), type);
+	else if (type == 'x')
+		return (ft_to_hex(va_arg(arg, int), type));
+	else if (type == 'X')
+		return (ft_to_hex(va_arg(arg, int), type));
+	else if (type == '%')
 		ft_putchar('%');
 }
 
 int	ft_printf(const char *string, ...)
 {
-	int	i;
+	int		i;
+	va_list	arg;
+	int		count;
 
+	va_start(arg, string);
 	i = 0;
+	count = 0;
 	while (string[i])
 	{
-		if (string[i] == 37)
-			ft_check(string[i + 1]);
-		i++;
+		if (string[i++] == '%')
+			count += ft_check(arg, string[i++]);
+		else
+			count += ft_putchar(string[i++]);
 	}
+	va_end(arg);
+	return (count);
 }

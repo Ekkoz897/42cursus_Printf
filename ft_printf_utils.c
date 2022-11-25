@@ -6,13 +6,13 @@
 /*   By: apereira <apereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:05:33 by apereira          #+#    #+#             */
-/*   Updated: 2022/11/23 17:44:38 by apereira         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:11:47 by apereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
 	size_t	i;
 
@@ -21,29 +21,79 @@ void	ft_putstr(char *s)
 	i = 0;
 	while (s[i])
 		write(1, &s[i++], 1);
+	return (i);
 }
 
-void	ft_putchar(char c)
+int	ft_putchar(char c)
 {
 	write(1, &c, 1);
+	return (1);
 }
 
 int	ft_to_hex(int address, char c)
 {
 	size_t	i;
+	int		count;
 
-	if (i > 15)
+	count = 0;
+	if (address > 15)
 	{
-		ft_to_hex(i / 16, c);
-		i %= 16;
+		ft_to_hex(address / 16, c);
+		i = address % 16;
 	}
 	if (i < 10)
-		ft_putchar_fd(i + '0');
+		count += ft_putchar(i + '0');
 	else
 	{
 		if (c == 'x')
-			ft_putchar(i - 10 + 'a');
+			count += ft_putchar(i - 10 + 'a');
 		else
-			ft_putchar(i - 10 + 'A');
+			count += ft_putchar(i - 10 + 'A');
 	}
+	return (count);
+}
+
+int	ft_putnbr(int n, int count)
+{
+	size_t			i;
+
+	if (n < 0)
+	{
+		if (n == -2147483648)
+			return (ft_putstr("-2147483648"));
+		ft_putchar('-');
+		i = -n;
+		count += 1;
+	}
+	else
+		i = n;
+	if (i > 9)
+	{
+		ft_putnbr(i / 10, count);
+		i %= 10;
+	}
+	count += 1;
+	ft_putchar(i + '0');
+	return (count);
+}
+
+int	ft_putunbr(int n, int count)
+{
+	size_t			i;
+
+	if (n < 0)
+	{
+		count += ft_putchar('-');
+		i = -n;
+	}
+	else
+		i = n;
+	if (i > 9)
+	{
+		ft_putnbr(i / 10, count);
+		i %= 10;
+	}
+	count += 1;
+	ft_putchar(i + '0');
+	return (count);
 }
