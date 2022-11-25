@@ -6,7 +6,7 @@
 /*   By: apereira <apereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:05:33 by apereira          #+#    #+#             */
-/*   Updated: 2022/11/25 17:11:47 by apereira         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:33:40 by apereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_putunbr(int n, int count)
 		i = n;
 	if (i > 9)
 	{
-		ft_putnbr(i / 10, count);
+		ft_putunbr(i / 10, count);
 		i %= 10;
 	}
 	count += 1;

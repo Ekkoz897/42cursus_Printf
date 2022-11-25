@@ -6,7 +6,7 @@
 /*   By: apereira <apereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:06:20 by apereira          #+#    #+#             */
-/*   Updated: 2022/11/25 17:11:13 by apereira         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:18:47 by apereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	ft_check(va_list arg, char type);
 int	ft_printf(const char *string, ...);
 int	ft_putnbr(int n, int count);
 int	ft_putunbr(int n, int count);
+int	ft_to_uhex(unsigned long address, char c);
 
 #endif
