@@ -18,12 +18,13 @@
 # include <stdarg.h>
 
 int	ft_putstr(char *s);
-int	ft_putchar(char c);
+int	ft_putchar(int c);
 int	ft_to_hex(int address, char c);
 int	ft_check(va_list arg, char type);
 int	ft_printf(const char *string, ...);
 int	ft_putnbr(int n, int count);
-int	ft_putunbr(int n, int count);
-int	ft_to_uhex(unsigned long address, char c);
+int	ft_putunbr(unsigned int n, int count);
+int	ft_to_uhex(unsigned long address, int count);
+int	ft_nbr_len(unsigned long number, int div_by);
 
 #endif
