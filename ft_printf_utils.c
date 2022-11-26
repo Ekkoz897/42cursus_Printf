@@ -16,6 +16,8 @@ int	ft_putstr(char *s)
 {
 	size_t	i;
 
+	if (s == NULL)
+		return (ft_putstr("(null)"));
 	i = 0;
 	while (s[i])
 		write(1, &s[i++], 1);

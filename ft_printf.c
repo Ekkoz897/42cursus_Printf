@@ -68,7 +68,7 @@ int	ft_ptr(unsigned long address, int count)
 		if (address < 10)
 			count += ft_putchar(address + '0');
 		else
-				count += ft_putchar(address - 10 + 'A');
+			count += ft_putchar(address - 10 + 'A');
 	}
 	return (count);
 }
@@ -89,7 +89,12 @@ int	ft_nbr_len(unsigned long number, int div_by)
 int	ft_to_uhex(unsigned long address, int count)
 {
 	count = 0;
-	count += ft_putstr("0x") + ft_nbr_len(address, 16);
-	ft_ptr(address, count);
+	if (address == 0)
+		return (ft_putchar('0'));
+	else
+	{
+		count += ft_putstr("0x") + ft_nbr_len(address, 16);
+		ft_ptr(address, count);
+	}
 	return (count);
 }
