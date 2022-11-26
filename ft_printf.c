@@ -70,12 +70,12 @@ int	ft_ptr(unsigned long address, int count)
 		else
 				count += ft_putchar(address - 10 + 'A');
 	}
-	return (count);	
+	return (count);
 }
 
 int	ft_nbr_len(unsigned long number, int div_by)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (number != 0)
