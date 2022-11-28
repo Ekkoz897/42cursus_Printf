@@ -6,7 +6,7 @@
 /*   By: apereira <apereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:03:31 by apereira          #+#    #+#             */
-/*   Updated: 2022/11/28 17:21:07 by apereira         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:38:48 by apereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_check(va_list arg, char format)
 	else if (format == 'p')
 		return (ft_print_address(va_arg(arg, unsigned long long), count));
 	else if (format == 'd' || format == 'i')
-		return (ft_putnbr(va_arg(arg, size_t), count));
+		return (ft_putnbr(va_arg(arg, int), count));
 	else if (format == 'u')
 		return (ft_putunbr(va_arg(arg, unsigned int), format));
 	else if (format == 'x' || format == 'X')
