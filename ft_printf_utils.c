@@ -6,11 +6,17 @@
 /*   By: apereira <apereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:05:33 by apereira          #+#    #+#             */
-/*   Updated: 2022/11/28 14:18:51 by apereira         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:07:02 by apereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_putchar(int c)
+{
+	write(1, &c, 1);
+	return (1);
+}
 
 int	ft_putstr(char *s)
 {
@@ -24,32 +30,26 @@ int	ft_putstr(char *s)
 	return (i);
 }
 
-int	ft_putchar(int c)
+int	ft_to_hex(unsigned int nbr, char c)
 {
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_to_hex(unsigned int address, char c)
-{
-	if (address > 15)
+	if (nbr > 15)
 	{
-		ft_to_hex(address / 16, c);
-		ft_to_hex(address % 16, c);
+		ft_to_hex(nbr / 16, c);
+		ft_to_hex(nbr % 16, c);
 	}
 	else
 	{
-		if (address < 10)
-			ft_putchar(address + '0');
+		if (nbr < 10)
+			ft_putchar(nbr + '0');
 		else
 		{
 			if (c == 'x')
-				ft_putchar(address - 10 + 'a');
+				ft_putchar(nbr - 10 + 'a');
 			else
-				ft_putchar(address - 10 + 'A');
+				ft_putchar(nbr - 10 + 'A');
 		}
 	}
-	return (ft_nbr_len(address, 16));
+	return (ft_nbr_len(nbr, 16));
 }
 
 int	ft_putnbr(int n, int count)
