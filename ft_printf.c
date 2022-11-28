@@ -6,7 +6,7 @@
 /*   By: apereira <apereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:03:31 by apereira          #+#    #+#             */
-/*   Updated: 2022/11/25 17:32:53 by apereira         ###   ########.fr       */
+/*   Updated: 2022/11/28 14:01:14 by apereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	ft_check(va_list arg, char type)
 	else if (type == 's')
 		return (ft_putstr(va_arg(arg, char *)));
 	else if (type == 'p')
-		return (ft_to_uhex(va_arg(arg, unsigned long), type));
+		return (ft_to_uhex(va_arg(arg, unsigned long long), count));
 	else if (type == 'd' || type == 'i')
-		return (ft_putnbr(va_arg(arg, int), count));
+		return (ft_putnbr(va_arg(arg, size_t), count));
 	else if (type == 'u')
 		return (ft_putunbr(va_arg(arg, unsigned int), type));
 	else if (type == 'x' || type == 'X')
@@ -56,21 +56,20 @@ int	ft_printf(const char *string, ...)
 	return (count);
 }
 
-int	ft_ptr(unsigned long address, int count)
+void	ft_ptr(unsigned long address)
 {
 	if (address > 15)
 	{
-		ft_ptr(address / 16, count);
-		ft_ptr(address % 16, count);
+		ft_ptr(address / 16);
+		ft_ptr(address % 16);
 	}
 	else
 	{
 		if (address < 10)
-			count += ft_putchar(address + '0');
+			ft_putchar(address + '0');
 		else
-			count += ft_putchar(address - 10 + 'A');
+			ft_putchar(address - 10 + 'a');
 	}
-	return (count);
 }
 
 int	ft_nbr_len(unsigned long number, int div_by)
@@ -78,6 +77,8 @@ int	ft_nbr_len(unsigned long number, int div_by)
 	int	i;
 
 	i = 0;
+	if (number == 0)
+		return (1);
 	while (number != 0)
 	{
 		i++;
@@ -86,15 +87,16 @@ int	ft_nbr_len(unsigned long number, int div_by)
 	return (i);
 }
 
-int	ft_to_uhex(unsigned long address, int count)
+int	ft_to_uhex(unsigned long long address, int count)
 {
 	count = 0;
-	if (address == 0)
-		return (ft_putchar('0'));
+	count += write(1, "0x", 2);
+	if (address < 1)
+		count += write(1, "0", 1);
 	else
 	{
-		count += ft_putstr("0x") + ft_nbr_len(address, 16);
-		ft_ptr(address, count);
+		count += ft_nbr_len(address, 16);
+		ft_ptr(address);
 	}
 	return (count);
 }

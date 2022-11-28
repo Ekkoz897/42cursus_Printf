@@ -6,7 +6,7 @@
 /*   By: apereira <apereira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:05:33 by apereira          #+#    #+#             */
-/*   Updated: 2022/11/25 17:33:40 by apereira         ###   ########.fr       */
+/*   Updated: 2022/11/28 14:18:51 by apereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ int	ft_putchar(int c)
 	return (1);
 }
 
-int	ft_to_hex(int address, char c)
+int	ft_to_hex(unsigned int address, char c)
 {
-	int		count;
-
 	if (address > 15)
 	{
 		ft_to_hex(address / 16, c);
@@ -51,31 +49,28 @@ int	ft_to_hex(int address, char c)
 				ft_putchar(address - 10 + 'A');
 		}
 	}
-	count = ft_nbr_len(address, 16);
-	return (count);
+	return (ft_nbr_len(address, 16));
 }
 
 int	ft_putnbr(int n, int count)
 {
-	size_t			i;
+	int			i;
 
-	count = ft_nbr_len(n, 10);
 	if (n < 0)
 	{
 		if (n == -2147483648)
 			return (ft_putstr("-2147483648"));
-		ft_putchar('-');
-		i = -n;
+		count += write(1, "-", 1);
+		n *= -1;
 	}
-	else
-		i = n;
+	i = n;
 	if (i > 9)
 	{
 		ft_putnbr(i / 10, count);
 		i %= 10;
 	}
 	ft_putchar(i + '0');
-	return (count);
+	return (count += ft_nbr_len(n, 10));
 }
 
 int	ft_putunbr(unsigned int n, int count)
